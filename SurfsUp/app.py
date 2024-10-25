@@ -19,7 +19,7 @@ Base.prepare(engine, reflect=True)
 Measurement = Base.classes.measurement
 Station = Base.classes.station
 
-# Create our session (link) from Python to the DB
+# Create our session from Python to the DB
 Session = scoped_session(sessionmaker(bind=engine))
 session = Session()
 
@@ -93,6 +93,7 @@ def tobs():
 
 @app.route('/api/v1.0/<start>')
 def start_date(start):
+  
     # Query temperature stats from start date to the end of the dataset
     results = session.query(
         func.min(Measurement.tobs),
@@ -110,6 +111,7 @@ def start_date(start):
 
 @app.route('/api/v1.0/<start>/<end>')
 def start_end_date(start, end):
+   
     # Query temperature stats from start date to end date
     results = session.query(
         func.min(Measurement.tobs),
